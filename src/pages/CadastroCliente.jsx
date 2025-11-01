@@ -51,7 +51,7 @@ const handleSubmit = async (e) => {
 
 return (
     <div className="container login-container"> {/* Reutilizando estilo do login */}
-      <h2>Cadastro de Novo Cliente</h2>
+      <h2>Cadastro de Novo Usuário</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

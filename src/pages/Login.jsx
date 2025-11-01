@@ -11,9 +11,9 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/cliente/login', { email, senha });
+      const response = await api.post('/usuario/login', { email, senha });
       localStorage.setItem('token', response.data.token);
-      navigate('/jogadores');
+      navigate('/advogados');
     } catch (err) {
       setError('Email ou senha inválidos.');
     }
@@ -21,7 +21,7 @@ function Login() {
 
   return (
     <div className="container login-container">
-      <h2>Game API - Login</h2>
+      <h2>Advogados API - Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -39,7 +39,6 @@ function Login() {
         />
         <button type="submit">Entrar</button>
         <button className='cadastro' type="button" onClick={() => navigate('/cadastro')}>Crie seu cadastro</button> {/* Botão de cadastro */}
-        {/* <a className='cadastro' href="/cadastro">Crie seu cadastro</a> */}
       </form>
       {error && <p className="error-message">{error}</p>}
     </div>
