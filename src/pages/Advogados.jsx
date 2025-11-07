@@ -70,7 +70,7 @@ function Advogados() {
     if (window.confirm('Tem certeza que deseja excluir este advogado?')) {
         try {
           await api.delete(`/advogado/${id}`);
-          fetchadvogados(); // Recarrega a lista após a exclusão bem-sucedida
+          await fetchadvogados(); // Aguarda a recarga da lista
         } catch (error) {
           console.error("Erro ao deletar advogado:", error);
         }
@@ -93,7 +93,7 @@ function Advogados() {
         <h3>{editando ? 'Editar advogado' : 'Novo Advogado'}</h3>
         <div className="form-grid">
             <input type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
-            <input type="text" placeholder="OAB" value={oab} onChange={(e) => setOab(e.target.value)} required />
+            <input type="text" placeholder="OAB" value={oab} onChange={(e) => setOab(e.target.value)} required maxLength={8} />
             <input type="text" placeholder="Especialidade" value={especialidade} onChange={(e) => setEspecialidade(e.target.value)} required />
         </div>
         <div className="form-actions">
@@ -106,9 +106,23 @@ function Advogados() {
       <ul className="adv-list">
         {advogados.map((advogado) => (
           <li key={advogado.id} className="adv-item">
-            <span className="adv-info">
-              {advogado.nome} (Oab: {advogado.oab}, Especialidade: {advogado.especialidade})
-            </span>
+            <div className="adv-info">
+              <strong>{advogado.nome}</strong> (OAB: {advogado.oab})
+              {/* Verifica se o advogado tem processos e se a lista não está vazia */}
+              {advogado.processos && advogado.processos.length > 0 ? (
+                <ul className="processo-list">
+                  {advogado.processos.map((processo) => (
+                    <ul key={processo.id}>
+                     <li>Número: {processo.numero_processo}</li> 
+                     <li>Descrição: {processo.descricao}</li> 
+                     <li>Status: {processo.status}</li> 
+                    </ul>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhum processo vinculado.</p>
+              )}
+            </div>
             <div className="adv-actions">
                 <button className="btn-edit" onClick={() => handleEdit(advogado)}>Editar</button>
                 <button className="btn-delete" onClick={() => handleDelete(advogado.id)}>Excluir</button>

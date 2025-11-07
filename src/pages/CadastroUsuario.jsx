@@ -41,7 +41,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const response = await api.post('/cliente', dadosUsuario); //
+    const response = await api.post('/usuario', dadosUsuario); //
     setSuccess('Cadastro realizado com sucesso! Você será redirecionado para o login.');
     // Limpar formulário
     setNome('');
