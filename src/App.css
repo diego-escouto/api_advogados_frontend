@@ -163,13 +163,13 @@ button[type="submit"]:hover {
 
 
 /* --- Lista de Jogadores --- */
-.players-list {
+.adv-list {
   list-style: none;
   padding: 0;
   margin-top: 2rem;
 }
 
-.player-item {
+.adv-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -180,15 +180,15 @@ button[type="submit"]:hover {
   transition: box-shadow 0.3s;
 }
 
-.player-item:hover {
+.adv-item:hover {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.player-info {
+.adv-info {
   font-weight: 500;
 }
 
-.player-actions {
+.adv-actions {
   display: flex;
   gap: 0.5rem;
 }

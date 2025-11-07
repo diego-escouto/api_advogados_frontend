@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Importe useEffect
 import api from '../services/api'; //
 import { useNavigate } from 'react-router-dom';
 import '../App.css'; //
 
-function CadastroCliente() {
+function CadastroUsuario() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+
+  // Efeito para limpar mensagens de erro/sucesso após um tempo
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(''), 5000); // Limpa erro após 5 segundos
+      return () => clearTimeout(timer);
+    }
+    if (success) {
+      const timer = setTimeout(() => setSuccess(''), 5000); // Limpa sucesso após 5 segundos
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -22,14 +34,14 @@ const handleSubmit = async (e) => {
      return;
   }
 
-  const dadosCliente = {
+  const dadosUsuario = {
      email,
      senha,
      ...(nome && { nome }) // Adiciona nome apenas se preenchido
   };
 
   try {
-    const response = await api.post('/cliente', dadosCliente); //
+    const response = await api.post('/cliente', dadosUsuario); //
     setSuccess('Cadastro realizado com sucesso! Você será redirecionado para o login.');
     // Limpar formulário
     setNome('');
@@ -82,4 +94,4 @@ return (
   );
 }
 
-export default CadastroCliente;
+export default CadastroUsuario;
